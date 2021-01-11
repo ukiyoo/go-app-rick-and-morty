@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/maxence-charriere/go-app/v7/pkg/app"
@@ -12,7 +14,8 @@ import (
 type character struct {
 	app.Compo
 
-	loader     bool
+	loader     Loader
+	page       int
 	characters AllCharacters
 }
 
@@ -66,7 +69,7 @@ func (c *character) getAllCharacters(url string) {
 		return
 	}
 	// c.isLoader()
-	time.AfterFunc(2*time.Second, c.isLoader)
+	time.AfterFunc(1*time.Second, c.isLoader)
 	c.updateAllCharacters(all)
 }
 
@@ -79,7 +82,7 @@ func (c *character) updateAllCharacters(data AllCharacters) {
 
 func (c *character) isLoader() {
 	app.Dispatch(func() {
-		c.loader = true
+		c.loader.loader = true
 		c.Update()
 	})
 }
@@ -91,7 +94,7 @@ func (c *character) OnMount(ctx app.Context) {
 }
 
 func (c *character) onNext(ctx app.Context, e app.Event) {
-	c.loader = false
+	c.loader.loader = false
 	c.Update()
 
 	app.Dispatch(func() {
@@ -99,36 +102,81 @@ func (c *character) onNext(ctx app.Context, e app.Event) {
 	})
 }
 
+func (c *character) onPrev(ctx app.Context, e app.Event) {
+	c.loader.loader = false
+	c.Update()
+
+	app.Dispatch(func() {
+		c.getAllCharacters(c.characters.Info.Next)
+	})
+}
+
+func (c *character) onPage(ctx app.Context, e app.Event) {
+	e.PreventDefault()
+	c.loader.loader = false
+	c.Update()
+
+	pageInt := ctx.JSSrc.Get("text").String()
+	c.page, _ = strconv.Atoi(pageInt)
+	url := fmt.Sprintf("https://rickandmortyapi.com/api/character/?page=%v", c.page)
+
+	app.Dispatch(func() {
+		c.getAllCharacters(url)
+	})
+}
+
 func (c *character) Render() app.UI {
-	return app.Div().Class("columns is-multiline").Body(
-		app.If(!c.loader,
-			&loader{},
-		).Else(
+	pages := make([]int, c.characters.Info.Pages)
+	return app.If(!c.loader.loader,
+		&Loader{},
+	).Else(
+		app.Div().Class("container").Body(
+			app.Div().Class("columns is-multiline").Body(
+				app.Range(c.characters.Results).Slice(func(i int) app.UI {
+					return app.Div().Class("column is-6").Body(
 
-			app.Range(c.characters.Results).Slice(func(i int) app.UI {
-				return app.Div().Class("column is-6").Body(
+						app.Div().Class("box").Body(
 
-					app.Div().Class("box").Body(
-
-						app.Article().Class("media").Body(
-							app.Div().Class("media-left").Body(
-								app.Figure().Class("image is-128x128").Body(
-									app.Img().Src(c.characters.Results[i].Image),
+							app.Article().Class("media").Body(
+								app.Div().Class("media-left").Body(
+									app.Figure().Class("image is-128x128").Body(
+										app.Img().Class("is-rounded").Src(c.characters.Results[i].Image),
+									),
 								),
-							),
 
-							app.Div().Class("media-content").Body(
-								app.Div().Class("content").Body(
-									app.P().Body(
-										app.Strong().Text(c.characters.Results[i].Name),
+								app.Div().Class("media-content").Body(
+									app.Div().Class("content").Body(
+										app.P().Body(
+											app.Strong().Text(c.characters.Results[i].Name),
+											app.Br(),
+											app.Small().Text(c.characters.Results[i].Species),
+											app.Br(),
+											app.Text(c.characters.Results[i].Status),
+										),
 									),
 								),
 							),
 						),
-					),
-				)
-			}),
+					)
+				}),
+			),
+			app.Nav().Class("pagination is-centered").Body(
+				app.A().Href("/").Class("pagination-previous").Text("Prev").OnClick(c.onPrev),
+				app.A().Href("/").Class("pagination-next").Text("Next").OnClick(c.onNext),
+
+				app.Ul().Class("pagination-list").Body(
+					app.Range(pages).Slice(func(i int) app.UI {
+						i++
+						return app.Li().Body(
+							app.If(i == c.page,
+								app.A().Class("pagination-link is-current").Href("/").Text(i).OnClick(c.onPage),
+							).Else(
+								app.A().Class("pagination-link").Href("/").Text(i).OnClick(c.onPage),
+							),
+						)
+					}),
+				),
+			),
 		),
-		app.Button().Class("button").Text("Next").OnClick(c.onNext),
 	)
 }

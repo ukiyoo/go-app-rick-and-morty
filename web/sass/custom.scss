@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// Colors
+$white-smoke: #f6f6f6;
+$beige: #2e3337;
+$beige-lighter: #1a1c1f;
+$glacier: #83d1e3;
+// Global
+
+
+// Fonts
+$family-sans-serif: "Nunito", sans-serif;
+$text: $white-smoke;
+
+$body-background-color: $beige-lighter;
+
+// Typography
+$text-strong: $text;
+
+// Box
+$box-color: $text;
+$box-background-color: $beige;
+
+// Button
+$button-color: $text;
+$button-background-color: $beige;
+
+// Pagination
+$pagination-color: $text;
+
+$pagination-hover-color: $text;
+$pagination-hover-border-color: $glacier;
+
+$pagination-current-color: $beige;
+$pagination-current-border-color: $beige;
+$pagination-current-background-color: $glacier;
+
+
+
+@import "../bulma/bulma.sass";

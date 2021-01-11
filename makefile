@@ -5,5 +5,7 @@ build:
 	go env -w GOARCH=amd64 GOOS=windows
 	go build -o start ./server
 
+	sass web/sass/custom.scss:web/custom.css
+
 run: build
 	./start

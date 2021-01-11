@@ -22,7 +22,7 @@ func main() {
 		ThemeColor:      "#000000",
 		BackgroundColor: "#000000",
 		Styles: []string{
-			"https://unpkg.com/bulma@0.9.0/css/bulma.min.css",
+			"web/custom.css",
 			"web/loader.css",
 		},
 	})
