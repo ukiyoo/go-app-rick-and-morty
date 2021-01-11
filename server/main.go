@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/maxence-charriere/go-app/v7/pkg/app"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/maxence-charriere/go-app/v7/pkg/app"
 )
 
 func main() {
@@ -22,6 +23,7 @@ func main() {
 		BackgroundColor: "#000000",
 		Styles: []string{
 			"https://unpkg.com/bulma@0.9.0/css/bulma.min.css",
+			"web/loader.css",
 		},
 	})
 	err := http.ListenAndServe(":"+port, nil)
