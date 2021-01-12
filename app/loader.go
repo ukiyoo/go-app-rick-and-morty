@@ -4,8 +4,12 @@ import "github.com/maxence-charriere/go-app/v7/pkg/app"
 
 type Loader struct {
 	app.Compo
-
 	loader bool
+}
+
+func (l *Loader) isLoader() {
+	l.loader = true
+	l.Update()
 }
 
 func (l *Loader) Render() app.UI {

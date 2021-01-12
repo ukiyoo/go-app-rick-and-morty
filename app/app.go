@@ -6,6 +6,9 @@ import (
 
 type home struct {
 	app.Compo
+
+	id       int
+	isSingle bool
 }
 
 func (h *home) Render() app.UI {
@@ -18,10 +21,15 @@ func (h *home) Render() app.UI {
 					&menu{},
 				),
 				app.Div().Class("column is-9").Body(
+					// &search{},
 					app.Section().Class("info-tiles").Body(
 						app.H1().Class("is-size-4 pb-2").Text("CHARACHTERS"),
 					),
-					&character{},
+					app.If(h.isSingle,
+						&Character{id: h.id},
+					).Else(
+						&Characters{},
+					),
 				),
 			),
 		),
@@ -29,6 +37,9 @@ func (h *home) Render() app.UI {
 }
 
 func main() {
+	for i := 1; i < 600; i++ {
+		app.Route("/character/"+string(i), &home{id: i, isSingle: true})
+	}
 	app.Route("/", &home{})
 	app.Run()
 }

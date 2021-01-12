@@ -11,7 +11,7 @@ import (
 	"github.com/maxence-charriere/go-app/v7/pkg/app"
 )
 
-type character struct {
+type Characters struct {
 	app.Compo
 
 	loader     Loader
@@ -48,7 +48,7 @@ type AllCharacters struct {
 	} `json:"results"`
 }
 
-func (c *character) getAllCharacters(url string) {
+func (c *Characters) getAllCharacters(url string) {
 	r, err := http.Get(url)
 	if err != nil {
 		return
@@ -73,27 +73,27 @@ func (c *character) getAllCharacters(url string) {
 	c.updateAllCharacters(all)
 }
 
-func (c *character) updateAllCharacters(data AllCharacters) {
+func (c *Characters) updateAllCharacters(data AllCharacters) {
 	app.Dispatch(func() {
 		c.characters = data
 		c.Update()
 	})
 }
 
-func (c *character) isLoader() {
+func (c *Characters) isLoader() {
 	app.Dispatch(func() {
 		c.loader.loader = true
 		c.Update()
 	})
 }
 
-func (c *character) OnMount(ctx app.Context) {
+func (c *Characters) OnMount(ctx app.Context) {
 	app.Dispatch(func() {
 		c.getAllCharacters("https://rickandmortyapi.com/api/character")
 	})
 }
 
-func (c *character) onNext(ctx app.Context, e app.Event) {
+func (c *Characters) onNext(ctx app.Context, e app.Event) {
 	c.loader.loader = false
 	c.Update()
 
@@ -102,7 +102,7 @@ func (c *character) onNext(ctx app.Context, e app.Event) {
 	})
 }
 
-func (c *character) onPrev(ctx app.Context, e app.Event) {
+func (c *Characters) onPrev(ctx app.Context, e app.Event) {
 	c.loader.loader = false
 	c.Update()
 
@@ -111,7 +111,7 @@ func (c *character) onPrev(ctx app.Context, e app.Event) {
 	})
 }
 
-func (c *character) onPage(ctx app.Context, e app.Event) {
+func (c *Characters) onPage(ctx app.Context, e app.Event) {
 	e.PreventDefault()
 	c.loader.loader = false
 	c.Update()
@@ -125,8 +125,10 @@ func (c *character) onPage(ctx app.Context, e app.Event) {
 	})
 }
 
-func (c *character) Render() app.UI {
+func (c *Characters) Render() app.UI {
 	pages := make([]int, c.characters.Info.Pages)
+	// url := fmt.Sprintf("http://localhost:8000/character/%v", c.page)
+
 	return app.If(!c.loader.loader,
 		&Loader{},
 	).Else(
@@ -134,24 +136,25 @@ func (c *character) Render() app.UI {
 			app.Div().Class("columns is-multiline").Body(
 				app.Range(c.characters.Results).Slice(func(i int) app.UI {
 					return app.Div().Class("column is-6").Body(
+						app.A().Href("http://localhost:8000/character/1").Body(
+							app.Div().Class("box").Body(
 
-						app.Div().Class("box").Body(
-
-							app.Article().Class("media").Body(
-								app.Div().Class("media-left").Body(
-									app.Figure().Class("image is-128x128").Body(
-										app.Img().Class("is-rounded").Src(c.characters.Results[i].Image),
+								app.Article().Class("media").Body(
+									app.Div().Class("media-left").Body(
+										app.Figure().Class("image is-128x128").Body(
+											app.Img().Class("is-rounded").Src(c.characters.Results[i].Image),
+										),
 									),
-								),
 
-								app.Div().Class("media-content").Body(
-									app.Div().Class("content").Body(
-										app.P().Body(
-											app.Strong().Text(c.characters.Results[i].Name),
-											app.Br(),
-											app.Small().Text(c.characters.Results[i].Species),
-											app.Br(),
-											app.Text(c.characters.Results[i].Status),
+									app.Div().Class("media-content").Body(
+										app.Div().Class("content").Body(
+											app.P().Body(
+												app.Strong().Text(c.characters.Results[i].Name),
+												app.Br(),
+												app.Small().Text(c.characters.Results[i].Species),
+												app.Br(),
+												app.Text(c.characters.Results[i].Status),
+											),
 										),
 									),
 								),
