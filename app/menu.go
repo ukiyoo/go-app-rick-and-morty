@@ -9,16 +9,20 @@ type menu struct {
 }
 
 func (c *menu) Render() app.UI {
-	return app.Div().Body(
-		app.Aside().Class("menu is-hedden-mobile").Body(
-			app.P().Class("menu-label").Text("Characters"),
+	return app.Div().Class("section").Body(
+		app.Aside().Class("menu").Body(
+			app.P().Class("menu-label").Text("General"),
 			app.Ul().Class("menu-list").Body(
 				app.Li().Body(
-					app.A().Text("Team Settings"),
+					app.A().Href("#").Text("CHARACTERS"),
+				),
+				app.Li().Body(
+					app.A().Href("#").Text("LOCATION"),
+				),
+				app.Li().Body(
+					app.A().Href("#").Text("EPISODES"),
 				),
 			),
-			app.P().Class("menu-label").Text("Episodes"),
-			app.P().Class("menu-label").Text("Locations"),
 		),
 	)
 }

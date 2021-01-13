@@ -127,57 +127,57 @@ func (c *Characters) onPage(ctx app.Context, e app.Event) {
 
 func (c *Characters) Render() app.UI {
 	pages := make([]int, c.characters.Info.Pages)
-	// url := fmt.Sprintf("http://localhost:8000/character/%v", c.page)
-
 	return app.If(!c.loader.loader,
 		&Loader{},
 	).Else(
-		app.Div().Class("container").Body(
-			app.Div().Class("columns is-multiline").Body(
-				app.Range(c.characters.Results).Slice(func(i int) app.UI {
-					return app.Div().Class("column is-6").Body(
-						app.A().Href("http://localhost:8000/character/1").Body(
-							app.Div().Class("box").Body(
+		app.Div().Class("section").Body(
+			app.Div().Class("container").Body(
+				app.Div().Class("columns is-multiline").Body(
+					app.Range(c.characters.Results).Slice(func(i int) app.UI {
+						return app.Div().Class("column is-6").Body(
+							app.A().Href("http://localhost:8000/chararcter/").Body(
+								app.Div().Class("box").Body(
 
-								app.Article().Class("media").Body(
-									app.Div().Class("media-left").Body(
-										app.Figure().Class("image is-128x128").Body(
-											app.Img().Class("is-rounded").Src(c.characters.Results[i].Image),
+									app.Article().Class("media").Body(
+										app.Div().Class("media-left").Body(
+											app.Figure().Class("image is-128x128").Body(
+												app.Img().Class("is-rounded").Src(c.characters.Results[i].Image),
+											),
 										),
-									),
 
-									app.Div().Class("media-content").Body(
-										app.Div().Class("content").Body(
-											app.P().Body(
-												app.Strong().Text(c.characters.Results[i].Name),
-												app.Br(),
-												app.Small().Text(c.characters.Results[i].Species),
-												app.Br(),
-												app.Text(c.characters.Results[i].Status),
+										app.Div().Class("media-content").Body(
+											app.Div().Class("content").Body(
+												app.P().Body(
+													app.Strong().Text(c.characters.Results[i].Name),
+													app.Br(),
+													app.Small().Text(c.characters.Results[i].Species),
+													app.Br(),
+													app.Text(c.characters.Results[i].Status),
+												),
 											),
 										),
 									),
 								),
 							),
-						),
-					)
-				}),
-			),
-			app.Nav().Class("pagination is-centered").Body(
-				app.A().Href("/").Class("pagination-previous").Text("Prev").OnClick(c.onPrev),
-				app.A().Href("/").Class("pagination-next").Text("Next").OnClick(c.onNext),
-
-				app.Ul().Class("pagination-list").Body(
-					app.Range(pages).Slice(func(i int) app.UI {
-						i++
-						return app.Li().Body(
-							app.If(i == c.page,
-								app.A().Class("pagination-link is-current").Href("/").Text(i).OnClick(c.onPage),
-							).Else(
-								app.A().Class("pagination-link").Href("/").Text(i).OnClick(c.onPage),
-							),
 						)
 					}),
+				),
+				app.Nav().Class("pagination is-centered").Body(
+					app.A().Href("/").Class("pagination-previous").Text("Prev").OnClick(c.onPrev),
+					app.A().Href("/").Class("pagination-next").Text("Next").OnClick(c.onNext),
+
+					app.Ul().Class("pagination-list").Body(
+						app.Range(pages).Slice(func(i int) app.UI {
+							i++
+							return app.Li().Body(
+								app.If(i == c.page,
+									app.A().Class("pagination-link is-current").Href("/").Text(i).OnClick(c.onPage),
+								).Else(
+									app.A().Class("pagination-link").Href("/").Text(i).OnClick(c.onPage),
+								),
+							)
+						}),
+					),
 				),
 			),
 		),

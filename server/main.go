@@ -22,8 +22,8 @@ func main() {
 		ThemeColor:      "#000000",
 		BackgroundColor: "#000000",
 		Styles: []string{
-			"web/custom.css",
 			"web/loader.css",
+			"web/custom.css",
 		},
 	})
 	err := http.ListenAndServe(":"+port, nil)
