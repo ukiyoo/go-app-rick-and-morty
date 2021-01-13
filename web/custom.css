@@ -4063,8 +4063,8 @@ button.dropdown-item.is-active {
   padding: 0.5em 0.75em;
 }
 .menu-list a:hover {
-  background-color: whitesmoke;
-  color: #f6f6f6;
+  background-color: #83d1e3;
+  color: #2e3337;
 }
 .menu-list a.is-active {
   background-color: #3273dc;

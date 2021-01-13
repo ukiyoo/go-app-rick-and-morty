@@ -132,32 +132,21 @@ func (c *Characters) Render() app.UI {
 	).Else(
 		app.Div().Class("section").Body(
 			app.Div().Class("container").Body(
+
+				//app.If(c.page < 0,
+				//	newCharacterBox(),
+				//).Else(
+
 				app.Div().Class("columns is-multiline").Body(
 					app.Range(c.characters.Results).Slice(func(i int) app.UI {
 						return app.Div().Class("column is-6").Body(
 							app.A().Href("http://localhost:8000/chararcter/").Body(
-								app.Div().Class("box").Body(
-
-									app.Article().Class("media").Body(
-										app.Div().Class("media-left").Body(
-											app.Figure().Class("image is-128x128").Body(
-												app.Img().Class("is-rounded").Src(c.characters.Results[i].Image),
-											),
-										),
-
-										app.Div().Class("media-content").Body(
-											app.Div().Class("content").Body(
-												app.P().Body(
-													app.Strong().Text(c.characters.Results[i].Name),
-													app.Br(),
-													app.Small().Text(c.characters.Results[i].Species),
-													app.Br(),
-													app.Text(c.characters.Results[i].Status),
-												),
-											),
-										),
-									),
-								),
+								newCharacterBox().
+									Name(c.characters.Results[i].Name).
+									Image(c.characters.Results[i].Image).
+									Species(c.characters.Results[i].Species).
+									Status(c.characters.Results[i].Status).
+									Location(c.characters.Results[i].Location.Name),
 							),
 						)
 					}),
@@ -177,6 +166,106 @@ func (c *Characters) Render() app.UI {
 								),
 							)
 						}),
+					),
+				),
+			),
+		),
+	)
+}
+
+type statusTag struct {
+	app.Compo
+	color  string
+	status string
+}
+
+func newStatusTag() *statusTag {
+	return &statusTag{}
+}
+
+func (s *statusTag) Text(v string) *statusTag {
+	s.status = v
+	switch s.status {
+	case "Alive":
+		s.color = "is-primary"
+	case "Dead":
+		s.color = "is-danger"
+	default:
+		s.color = "is-warning"
+	}
+	return s
+}
+
+func (s *statusTag) Render() app.UI {
+	return app.Span().
+		Class("tag").
+		Class(s.color).
+		Text(s.status)
+}
+
+type characterBox struct {
+	app.Compo
+
+	CharName     string
+	CharSpecies  string
+	CharImage    string
+	CharStatus   string
+	CharLocation string
+}
+
+func newCharacterBox() *characterBox {
+	return &characterBox{}
+}
+
+func (c *characterBox) Name(v string) *characterBox {
+	c.CharName = v
+	return c
+}
+
+func (c *characterBox) Species (v string) *characterBox {
+	c.CharSpecies = v
+	return c
+}
+
+func (c *characterBox) Image (v string) *characterBox {
+	c.CharImage = v
+	return c
+}
+
+func (c *characterBox) Status(v string) *characterBox {
+	c.CharStatus = v
+	return c
+}
+
+func (c *characterBox) Location(v string) *characterBox {
+	c.CharLocation = v
+	return c
+}
+
+func (c *characterBox) Render() app.UI {
+	return app.Div().Class("box").Body(
+
+		app.Article().Class("media").Body(
+			app.Div().Class("media-left").Body(
+				app.Figure().Class("image is-128x128").Body(
+					app.Img().Class("is-rounded").Src(c.CharImage),
+				),
+			),
+
+			app.Div().Class("media-content").Body(
+				app.Div().Class("content").Body(
+					app.P().Body(
+						app.Strong().Text(c.CharName),
+						app.Br(),
+						app.Small().Text(c.CharSpecies),
+						app.Br(),
+						newStatusTag().Text(c.CharStatus),
+						app.Br(),
+						app.Br(),
+						app.Small().Class("has-text-grey-light").Text("Last known location: "),
+						app.Br(),
+						app.Text(c.CharLocation),
+
 					),
 				),
 			),

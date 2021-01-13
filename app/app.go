@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/maxence-charriere/go-app/v7/pkg/app"
+	"strconv"
 )
 
 type home struct {
@@ -52,7 +53,7 @@ func (h *home) Render() app.UI {
 
 func main() {
 	for i := 1; i < 600; i++ {
-		app.Route("/character/"+string(i), &home{id: i, isSingle: true})
+		app.Route("/character/"+strconv.Itoa(i), &home{id: i, isSingle: true})
 	}
 	app.Route("/", &home{})
 	app.Run()

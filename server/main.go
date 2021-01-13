@@ -16,9 +16,10 @@ func main() {
 		Title:       "",
 		Name:        "",
 		Description: "",
-		//Icon: app.Icon{
-		//	Default: "/web/icon.png",
-		//},
+		Icon: app.Icon{
+			//Default: "/web/rnm-portal.png",
+			Default: "/web/giphy.gif",
+		},
 		ThemeColor:      "#000000",
 		BackgroundColor: "#000000",
 		Styles: []string{
