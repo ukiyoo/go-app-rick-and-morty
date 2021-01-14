@@ -10,7 +10,7 @@ import (
 	"github.com/maxence-charriere/go-app/v7/pkg/app"
 )
 
-type Character struct {
+type CharacterDetail struct {
 	app.Compo
 
 	id     int
@@ -39,7 +39,7 @@ type Char struct {
 	Created time.Time `json:"created"`
 }
 
-func (c *Character) getCharacter(id int) {
+func (c *CharacterDetail) getCharacter(id int) {
 	url := fmt.Sprintf("https://rickandmortyapi.com/api/character/%v", id)
 	r, err := http.Get(url)
 	if err != nil {
@@ -65,20 +65,20 @@ func (c *Character) getCharacter(id int) {
 	c.updateChar(char)
 }
 
-func (c *Character) updateChar(data Char) {
+func (c *CharacterDetail) updateChar(data Char) {
 	app.Dispatch(func() {
 		c.char = data
 		c.Update()
 	})
 }
 
-func (c *Character) OnMount(ctx app.Context) {
+func (c *CharacterDetail) OnMount(ctx app.Context) {
 	app.Dispatch(func() {
 		c.getCharacter(c.id)
 	})
 }
 
-func (c *Character) Render() app.UI {
+func (c *CharacterDetail) Render() app.UI {
 
 	return app.Section().Class("section").Body(
 

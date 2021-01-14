@@ -2,36 +2,18 @@ package main
 
 import (
 	"github.com/maxence-charriere/go-app/v7/pkg/app"
-	"strconv"
 )
 
 type home struct {
 	app.Compo
 
-	id       int
-	isSingle bool
+	CategorySlug string
 }
 
 func (h *home) Render() app.UI {
+	c := cat.Get(h.CategorySlug)
 
 	return app.Div().Body(
-		// &menu{},
-		// app.Div().Class("container").Body(
-		// 	app.Div().Class("columns").Body(
-		// 		app.Div().Class("column is-3").Body(),
-		// 		app.Div().Class("column is-9").Body(
-		// 			// &search{},
-		// 			app.Section().Class("info-tiles").Body(
-		// 				app.H1().Class("is-size-4 pb-2").Text("CHARACHTERS"),
-		// 			),
-		// 			app.If(h.isSingle,
-		// 				&Character{id: h.id},
-		// 			).Else(
-		// 				&Characters{},
-		// 			),
-		// 		),
-		// 	),
-		// ),
 		app.Shell().
 			Menu(app.Div().
 				Body(&menu{}),
@@ -47,14 +29,18 @@ func (h *home) Render() app.UI {
 				Style("height", "100%").
 				Style("overflow-x", "hidden").
 				Style("overflow-y", "auto").
-				Body(&Characters{})),
+				Body(&CharacterList{Url: c.URL})),
 	)
 }
 
 func main() {
-	for i := 1; i < 600; i++ {
-		app.Route("/character/"+strconv.Itoa(i), &home{id: i, isSingle: true})
+	for _, s := range cat.Slugs() {
+		app.Route("/"+s, &home{CategorySlug: s})
 	}
+
+	// for i := 1; i < 600; i++ {
+	// 	app.Route("/character/"+strconv.Itoa(i), &home{id: i, isSingle: true})
+	// }
 	app.Route("/", &home{})
 	app.Run()
 }

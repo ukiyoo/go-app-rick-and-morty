@@ -11,15 +11,17 @@ import (
 	"github.com/maxence-charriere/go-app/v7/pkg/app"
 )
 
-type Characters struct {
+type CharacterList struct {
 	app.Compo
+
+	Url string
 
 	loader     Loader
 	page       int
-	characters AllCharacters
+	characters Characters
 }
 
-type AllCharacters struct {
+type Characters struct {
 	Info struct {
 		Count int         `json:"count"`
 		Pages int         `json:"pages"`
@@ -48,7 +50,7 @@ type AllCharacters struct {
 	} `json:"results"`
 }
 
-func (c *Characters) getAllCharacters(url string) {
+func (c *CharacterList) getAllCharacters(url string) {
 	r, err := http.Get(url)
 	if err != nil {
 		return
@@ -61,39 +63,45 @@ func (c *Characters) getAllCharacters(url string) {
 		return
 	}
 
-	var all AllCharacters
+	var data map[string]interface{}
 
-	err = json.Unmarshal(b, &all)
+	err = json.Unmarshal(b, &data)
 	if err != nil {
 		app.Log(err.Error())
 		return
 	}
+
+	info := data["info"].(map[string]interface{})
+	fmt.Println(info["count"])
+
+	// fmt.Println(dat)
+	// fmt.Println(data)
 	// c.isLoader()
 	time.AfterFunc(1*time.Second, c.isLoader)
-	c.updateAllCharacters(all)
+	// c.updateAllCharacters(all)
 }
 
-func (c *Characters) updateAllCharacters(data AllCharacters) {
+func (c *CharacterList) updateAllCharacters(data Characters) {
 	app.Dispatch(func() {
 		c.characters = data
 		c.Update()
 	})
 }
 
-func (c *Characters) isLoader() {
+func (c *CharacterList) isLoader() {
 	app.Dispatch(func() {
 		c.loader.loader = true
 		c.Update()
 	})
 }
 
-func (c *Characters) OnMount(ctx app.Context) {
+func (c *CharacterList) OnMount(ctx app.Context) {
 	app.Dispatch(func() {
-		c.getAllCharacters("https://rickandmortyapi.com/api/character")
+		c.getAllCharacters(c.Url)
 	})
 }
 
-func (c *Characters) onNext(ctx app.Context, e app.Event) {
+func (c *CharacterList) onNext(ctx app.Context, e app.Event) {
 	c.loader.loader = false
 	c.Update()
 
@@ -102,7 +110,7 @@ func (c *Characters) onNext(ctx app.Context, e app.Event) {
 	})
 }
 
-func (c *Characters) onPrev(ctx app.Context, e app.Event) {
+func (c *CharacterList) onPrev(ctx app.Context, e app.Event) {
 	c.loader.loader = false
 	c.Update()
 
@@ -111,7 +119,7 @@ func (c *Characters) onPrev(ctx app.Context, e app.Event) {
 	})
 }
 
-func (c *Characters) onPage(ctx app.Context, e app.Event) {
+func (c *CharacterList) onPage(ctx app.Context, e app.Event) {
 	e.PreventDefault()
 	c.loader.loader = false
 	c.Update()
@@ -125,7 +133,7 @@ func (c *Characters) onPage(ctx app.Context, e app.Event) {
 	})
 }
 
-func (c *Characters) Render() app.UI {
+func (c *CharacterList) Render() app.UI {
 	pages := make([]int, c.characters.Info.Pages)
 	return app.If(!c.loader.loader,
 		&Loader{},
@@ -222,12 +230,12 @@ func (c *characterBox) Name(v string) *characterBox {
 	return c
 }
 
-func (c *characterBox) Species (v string) *characterBox {
+func (c *characterBox) Species(v string) *characterBox {
 	c.CharSpecies = v
 	return c
 }
 
-func (c *characterBox) Image (v string) *characterBox {
+func (c *characterBox) Image(v string) *characterBox {
 	c.CharImage = v
 	return c
 }
@@ -265,7 +273,6 @@ func (c *characterBox) Render() app.UI {
 						app.Small().Class("has-text-grey-light").Text("Last known location: "),
 						app.Br(),
 						app.Text(c.CharLocation),
-
 					),
 				),
 			),
