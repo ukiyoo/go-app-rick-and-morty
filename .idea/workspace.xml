@@ -2,16 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50333816-9f5a-4494-806b-03657b1fc75a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/web/giphy.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/rnm-portal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/structs.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/category.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/category.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/character_list.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/character_list.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/charcter_single.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/charcter_single.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/content.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/content.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/menu.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/menu.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/start" beforeDir="false" afterPath="$PROJECT_DIR$/start" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/app.wasm" beforeDir="false" afterPath="$PROJECT_DIR$/web/app.wasm" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/custom.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/custom.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/web/custom.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/sass/custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/web/sass/custom.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,8 +24,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Go File" />
         <option value="CSS File" />
+        <option value="Go File" />
       </list>
     </option>
   </component>

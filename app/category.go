@@ -54,3 +54,9 @@ func (s *APIStore) Slugs() []string {
 
 	return slugs
 }
+
+func (s *APIStore) Categories() []category {
+	c := make([]category, len(s.categories))
+	copy(c, s.categories)
+	return c
+}

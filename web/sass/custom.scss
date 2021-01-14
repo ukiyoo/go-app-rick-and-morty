@@ -13,12 +13,12 @@ $morty: #FFF874;
 $rick-head: #B0E7E8;
 
 $primary: $rick;
-$link: $blue;
-$info: $cyan;
-$success: $green;
-$warning: $yellow;
-$danger: $red;
-$dark: $grey-darker;
+//$link: $blue;
+//$info: $cyan;
+//$success: $green;
+//$warning: $yellow;
+//$danger: $red;
+//$dark: $grey-darker;
 $text: $white-smoke;
 
 // Global
@@ -52,6 +52,8 @@ $pagination-current-background-color: $glacier;
 
 
 // Menu
+$menu-item-active-color: $beige;
+$menu-item-active-background-color: $morty;
 
 $menu-item-hover-color: $beige;
 $menu-item-hover-background-color: $glacier;
