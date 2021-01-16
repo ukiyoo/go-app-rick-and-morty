@@ -13,15 +13,15 @@ func main() {
 	port := os.Getenv("PORT")
 	http.Handle("/", &app.Handler{
 		Author:      "ukiyoo",
-		Title:       "",
-		Name:        "",
-		Description: "",
+		Title:       "Rick and Morty",
+		Name:        "Rick and Morty",
+		Description: "Rick and Morty API",
 		Icon: app.Icon{
 			//Default: "/web/rnm-portal.png",
 			Default: "/web/giphy.gif",
 		},
-		ThemeColor:      "#000000",
-		BackgroundColor: "#000000",
+		ThemeColor:      "#1a1c1f",
+		BackgroundColor: "#1a1c1f",
 		Styles: []string{
 			"web/loader.css",
 			"web/custom.css",

@@ -1,29 +1,32 @@
 package main
 
 import (
-	"fmt"
 	"github.com/maxence-charriere/go-app/v7/pkg/app"
 )
 
 type menu struct {
 	app.Compo
 
-	CurrentCategory category
+	CurrentCategory Category
 }
 
 func (m *menu) Render() app.UI {
-	cats := cat.Categories()
-	fmt.Println(cats)
+	cats := api.Categories()
 	return app.Div().Class("section").Body(
+		app.Div().Class("align-content").Body(
+			app.Figure().Body(
+				app.Img().Src("/web/logo.png"),
+			),
+		),
 		app.Aside().Class("menu").Body(
 			app.P().Class("menu-label").Text("Rick&Morty"),
 			app.Ul().Class("menu-list").Body(
 				app.Range(cats).Slice(func(i int) app.UI {
 					c := cats[i]
 					return newMenuItem().
-							Url("/"+c.Slug).
-							Text(c.Name).
-							IsActive(c.Slug == m.CurrentCategory.Slug)
+						Url("/" + c.Slug).
+						Text(c.Name).
+						IsActive(c.Slug == m.CurrentCategory.Slug)
 				}),
 			),
 		),
@@ -33,7 +36,7 @@ func (m *menu) Render() app.UI {
 type menuItem struct {
 	app.Compo
 
-	url string
+	url      string
 	text     string
 	isActive string
 }
@@ -58,7 +61,6 @@ func (m *menuItem) Url(v string) *menuItem {
 	m.url = v
 	return m
 }
-
 
 func (m *menuItem) Render() app.UI {
 	return app.Li().Body(

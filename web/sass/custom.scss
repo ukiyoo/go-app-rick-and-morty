@@ -2,6 +2,10 @@
 
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
+// Body
+$body-overflow-x: hidden;
+$body-overflow-y: hidden;
+
 // Colors
 $white-smoke: #f6f6f6;
 $beige: #2e3337;
@@ -44,12 +48,16 @@ $button-background-color: $beige;
 $pagination-color: $text;
 
 $pagination-hover-color: $text;
-$pagination-hover-border-color: $glacier;
+$pagination-hover-border-color: $morty;
 
 $pagination-current-color: $beige;
-$pagination-current-border-color: $beige;
-$pagination-current-background-color: $glacier;
+$pagination-current-border-color: $morty;
+$pagination-current-background-color: $morty;
 
+
+// Menu
+
+$card-radius: 1.25rem;
 
 // Menu
 $menu-item-active-color: $beige;

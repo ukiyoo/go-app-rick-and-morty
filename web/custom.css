@@ -294,7 +294,7 @@ html {
   -webkit-font-smoothing: antialiased;
   min-width: 300px;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
   text-rendering: optimizeLegibility;
   text-size-adjust: 100%;
 }
@@ -3742,7 +3742,7 @@ a.tag:hover {
 
 .card {
   background-color: white;
-  border-radius: 0.25rem;
+  border-radius: 1.25rem;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
   color: #f6f6f6;
   max-width: 100%;
@@ -5412,7 +5412,7 @@ body.has-spaced-navbar-fixed-bottom {
 .pagination-previous:hover,
 .pagination-next:hover,
 .pagination-link:hover {
-  border-color: #83d1e3;
+  border-color: #FFF874;
   color: #f6f6f6;
 }
 .pagination-previous:focus,
@@ -5443,8 +5443,8 @@ body.has-spaced-navbar-fixed-bottom {
 }
 
 .pagination-link.is-current {
-  background-color: #83d1e3;
-  border-color: #2e3337;
+  background-color: #FFF874;
+  border-color: #FFF874;
   color: #2e3337;
 }
 

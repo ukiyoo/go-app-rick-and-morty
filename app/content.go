@@ -2,15 +2,27 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/maxence-charriere/go-app/v7/pkg/app"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 )
 
 type All struct {
 	characterList CharacterList
 	locationList  LocationList
 	episodeList   EpisodeList
+}
+
+type Content struct {
+	app.Compo
+
+	loader          bool
+	PageCount       int
+	PageId          int
+	Response        All
+	CurrentCategory Category
 }
 
 func (c *Content) getApi(url string) {
@@ -28,88 +40,146 @@ func (c *Content) getApi(url string) {
 
 	var data All
 
-	switch c.Slug {
-	case "characters":
+	switch c.CurrentCategory.Slug {
+	case CHARACTER:
 		err = json.Unmarshal(b, &data.characterList)
-	case "locations":
+		c.PageCount = data.characterList.Info.Pages
+	case LOCATION:
 		err = json.Unmarshal(b, &data.locationList)
-	case "episodes":
+		c.PageCount = data.locationList.Info.Pages
+	case EPISODE:
 		err = json.Unmarshal(b, &data.episodeList)
+		c.PageCount = data.episodeList.Info.Pages
 	}
 
 	if err != nil {
 		app.Log(err.Error())
 		return
 	}
-
+	//time.AfterFunc(1*time.Second, c.loaderOff)
+	c.loaderOff()
 	c.updateResponse(data)
 }
 
-type Content struct {
-	app.Compo
-
-	Url      string
-	Slug     string
-	Response All
-}
-
-
 func (c *Content) updateResponse(data All) {
-	app.Dispatch(func() {
-		c.Response = data
-		c.Update()
-	})
+	c.Response = data
+	c.Update()
 }
 
 func (c *Content) OnMount(ctx app.Context) {
+	c.getApi(c.CurrentCategory.URL)
+
+}
+
+func (c *Content) onPage(ctx app.Context, e app.Event) {
+	c.loaderOn()
+
+	pageInt := ctx.JSSrc.Get("text").String()
+	c.PageId, _ = strconv.Atoi(pageInt)
+	url := fmt.Sprintf("https://rickandmortyapi.com/api/%v/?page=%v", c.CurrentCategory.Slug, c.PageId)
+
 	app.Dispatch(func() {
-		c.getApi(c.Url)
+		c.getApi(url)
 	})
 }
 
+func (c *Content) loaderOff() {
+	c.loader = true
+	c.Update()
+}
+
+func (c *Content) loaderOn() {
+	c.loader = false
+	c.Update()
+}
 
 func (c *Content) Render() app.UI {
+	cat := api.GetCategory(c.CurrentCategory.Slug)
+	pages := make([]int, c.PageCount)
 	return app.Div().Class("section").Body(
 		app.Div().Class("container").Body(
-			app.Div().Class("columns is-multiline").Body(
+			app.H1().Class("title").Text(c.CurrentCategory.Name),
+			app.If(!c.loader,
+				newLoader(),
+			).Else(
+				app.Div().Class("columns is-multiline").Body(
+					app.If(c.CurrentCategory.Slug == CHARACTER,
+						app.Range(c.Response.characterList.Results).Slice(func(i int) app.UI {
+							character := c.Response.characterList.Results[i]
+							return app.Div().Class("column is-6").Body(
+								app.A().Href("/"+c.CurrentCategory.Slug+"/"+strconv.Itoa(character.ID)).Body(
+									newCharacterBox().
+										Name(character.Name).
+										Image(character.Image).
+										Species(character.Species).
+										Status(character.Status).
+										Location(character.Location.Name),
+								),
+							)
+						}),
+					).ElseIf(c.CurrentCategory.Slug == LOCATION,
+						app.Range(c.Response.locationList.Results).Slice(func(i int) app.UI {
+							location := c.Response.locationList.Results[i]
+							return app.Div().Class("column is-6").Body(
+								app.A().Href("/"+c.CurrentCategory.Slug+"/"+strconv.Itoa(location.ID)).Body(
+									newLocationBox().
+										Name(location.Name).
+										Dimension(location.Dimension),
+								),
+							)
+						}),
+					).ElseIf(c.CurrentCategory.Slug == EPISODE,
+						app.Range(c.Response.episodeList.Results).Slice(func(i int) app.UI {
+							episode := c.Response.episodeList.Results[i]
+							return app.Div().Class("column is-6").Body(
+								app.A().Href("/"+c.CurrentCategory.Slug+"/"+strconv.Itoa(episode.ID)).Body(
+									newEpisodeBox().
+										Name(episode.Name).
+										AirDate(episode.AirDate).
+										Episode(episode.Episode),
+								),
+							)
+						}),
+					),
+				),
+			),
+			app.Nav().Class("pagination is-centered").Body(
+				//app.A().Href("/").Class("pagination-previous").Text("Prev").OnClick(c.onPrev),
+				//app.A().Href("/").Class("pagination-next").Text("Next").OnClick(c.onNext),
 
-				app.If(c.Slug == "characters",
-					app.Range(c.Response.characterList.Results).Slice(func(i int) app.UI {
-						return app.Div().Class("column is-6").Body(
-							app.A().Href("http://localhost:8000/chararcter/").Body(
-								newCharacterBox().
-									Name(c.Response.characterList.Results[i].Name).
-									Image(c.Response.characterList.Results[i].Image).
-									Species(c.Response.characterList.Results[i].Species).
-									Status(c.Response.characterList.Results[i].Status).
-									Location(c.Response.characterList.Results[i].Location.Name),
+				app.Ul().Class("pagination-list").Body(
+					app.Range(pages).Slice(func(i int) app.UI {
+						i++
+						return app.Li().Body(
+							app.If(c.PageId == 0 && i == 1,
+								app.A().Class("pagination-link is-current").Href("/"+cat.Slug).Text(i).OnClick(c.onPage),
+								).ElseIf(i == c.PageId,
+								app.A().Class("pagination-link is-current").Href("/"+cat.Slug).Text(i).OnClick(c.onPage),
+							).Else(
+								app.A().Class("pagination-link").Href("/" + cat.Slug).Text(i).OnClick(c.onPage),
 							),
-						)
-					}),
 
-				).ElseIf(c.Slug == "locations",
-					app.Range(c.Response.locationList.Results).Slice(func(i int) app.UI {
-						return app.Div().Class("column is-6").Body(
-							app.A().Href("http://localhost:8000/chararcter/").Body(
-								newLocationBox().
-									Name(c.Response.locationList.Results[i].Name).
-									Dimension(c.Response.locationList.Results[i].Dimension),
-							),
-						)
-					}),
-
-				).ElseIf(c.Slug == "episodes",
-					app.Range(c.Response.episodeList.Results).Slice(func(i int) app.UI {
-						return app.Div().Class("column is-6").Body(
-							app.A().Href("http://localhost:8000/chararcter/").Body(
-								newEpisodeBox().
-									Name(c.Response.episodeList.Results[i].Name).
-									AirDate(c.Response.episodeList.Results[i].AirDate).
-									Episode(c.Response.episodeList.Results[i].Episode),
-							),
 						)
 					}),
 				),
+			),
+		),
+	)
+}
+
+type loader struct {
+	app.Compo
+}
+
+func newLoader() *loader {
+	return &loader{}
+}
+
+func (l *loader) Render() app.UI {
+	return app.Section().Class("hero is-fullheight has-text-centered").Style("min-height", "80vh").Body(
+		app.Div().Class("hero-body").Body(
+			app.Div().Class("container").Body(
+				app.Div().Class("lds-dual-ring"),
 			),
 		),
 	)
@@ -172,7 +242,7 @@ func (c *characterBox) Render() app.UI {
 						app.Br(),
 						app.Small().Class("has-text-grey-light").Text("Last known location: "),
 						app.Br(),
-						app.Text(c.character.Location),
+						app.Text(c.character.Location.Name),
 					),
 				),
 			),
@@ -263,4 +333,34 @@ func (e *episodeBox) Render() app.UI {
 			),
 		),
 	)
+}
+
+type statusTag struct {
+	app.Compo
+	color  string
+	status string
+}
+
+func newStatusTag() *statusTag {
+	return &statusTag{}
+}
+
+func (s *statusTag) Text(v string) *statusTag {
+	s.status = v
+	switch s.status {
+	case "Alive":
+		s.color = "is-primary"
+	case "Dead":
+		s.color = "is-danger"
+	default:
+		s.color = "is-warning"
+	}
+	return s
+}
+
+func (s *statusTag) Render() app.UI {
+	return app.Span().
+		Class("tag").
+		Class(s.color).
+		Text(s.status)
 }

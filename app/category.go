@@ -1,42 +1,45 @@
 package main
 
 var (
-	cat = newAPIStore()
+	api = newAPIStore()
+	CHARACTER = "character"
+	LOCATION = "location"
+	EPISODE = "episode"
 )
 
 type APIStore struct {
-	categories []category
+	categories []Category
 }
 
-type category struct {
+type Category struct {
 	Name string
 	Slug string
 	URL  string
 }
 
 func newAPIStore() *APIStore {
-	c := []category{
+	c := []Category{
 		{
 			Name: "CHARACTERS",
-			Slug: "characters",
+			Slug: CHARACTER,
 			URL:  "https://rickandmortyapi.com/api/character",
 		},
 		{
-			Name: "LOCATION",
-			Slug: "locations",
+			Name: "LOCATIONS",
+			Slug: LOCATION,
 			URL:  "https://rickandmortyapi.com/api/location",
 		},
 		{
 			Name: "EPISODES",
-			Slug: "episodes",
+			Slug: EPISODE,
 			URL:  "https://rickandmortyapi.com/api/episode",
 		},
 	}
 	return &APIStore{categories: c}
 }
 
-func (s *APIStore) Get(slug string) category {
-	var c category
+func (s *APIStore) GetCategory(slug string) Category {
+	var c Category
 	for _, c := range s.categories {
 		if c.Slug == slug {
 			return c
@@ -55,8 +58,8 @@ func (s *APIStore) Slugs() []string {
 	return slugs
 }
 
-func (s *APIStore) Categories() []category {
-	c := make([]category, len(s.categories))
+func (s *APIStore) Categories() []Category {
+	c := make([]Category, len(s.categories))
 	copy(c, s.categories)
 	return c
 }

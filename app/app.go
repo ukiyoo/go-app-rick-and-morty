@@ -2,16 +2,18 @@ package main
 
 import (
 	"github.com/maxence-charriere/go-app/v7/pkg/app"
+	"strconv"
 )
 
 type home struct {
 	app.Compo
 
+	ID           int
 	CategorySlug string
 }
 
 func (h *home) Render() app.UI {
-	c := cat.Get(h.CategorySlug)
+	c := api.GetCategory(h.CategorySlug)
 
 	return app.Div().Body(
 		app.Shell().
@@ -25,22 +27,38 @@ func (h *home) Render() app.UI {
 					Class("overlay-menu").
 					Body(&menu{CurrentCategory: c}),
 			).
-			Content(app.Div().
-				Style("height", "100%").
-				Style("overflow-x", "hidden").
-				Style("overflow-y", "auto").
-				Body(&Content{Url: c.URL, Slug: c.Slug})),
+			Content(app.If(h.ID == 0,
+				app.Div().
+					Style("height", "100%").
+					Style("overflow-x", "hidden").
+					Style("overflow-y", "auto").
+					Body(&Content{CurrentCategory: c}),
+			).Else(
+				app.Div().
+					Style("height", "100%").
+					Style("overflow-x", "hidden").
+					Style("overflow-y", "auto").
+					Body(&Detail{ID: h.ID}),
+			),
+			),
 	)
 }
 
 func main() {
-	for _, s := range cat.Slugs() {
+	for _, s := range api.Slugs() {
 		app.Route("/"+s, &home{CategorySlug: s})
 	}
 
-	// for i := 1; i < 600; i++ {
-	// 	app.Route("/character/"+strconv.Itoa(i), &home{id: i, isSingle: true})
-	// }
+	for i := 1; i <= 671; i++ {
+		app.Route("/"+CHARACTER+"/"+strconv.Itoa(i), &home{ID: i})
+	}
+	//for i := 1; i <= 108; i++ {
+	//	app.Route("/"+LOCATION+"/"+strconv.Itoa(i), &home{ID: i})
+	//}
+	//for i := 1; i <= 41; i++ {
+	//	app.Route("/"+EPISODE+"/"+strconv.Itoa(i), &home{ID: i})
+	//}
+
 	app.Route("/", &home{})
 	app.Run()
 }
