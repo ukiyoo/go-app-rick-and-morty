@@ -9,6 +9,12 @@ var (
 
 type APIStore struct {
 	categories []Category
+	seasons []Season
+}
+
+type Season struct {
+	SeasonName string
+	SeasonURL string
 }
 
 type Category struct {
@@ -33,9 +39,38 @@ func newAPIStore() *APIStore {
 			Name: "EPISODES",
 			Slug: EPISODE,
 			URL:  "https://rickandmortyapi.com/api/episode",
+
 		},
 	}
-	return &APIStore{categories: c}
+	s := []Season{
+		{
+			SeasonName: "S01",
+			SeasonURL: "https://rickandmortyapi.com/api/episode/?episode=S01",
+		},
+		{
+			SeasonName: "S02",
+			SeasonURL: "https://rickandmortyapi.com/api/episode/?episode=S02",
+		},
+		{
+			SeasonName: "S03",
+			SeasonURL: "https://rickandmortyapi.com/api/episode/?episode=S03",
+		},
+		{
+			SeasonName: "S04",
+			SeasonURL: "https://rickandmortyapi.com/api/episode/?episode=S04",
+		},
+
+	}
+
+	return &APIStore{categories: c, seasons: s}
+}
+
+func (s *APIStore) Seasons() []string {
+	seasons := make([]string, len(s.seasons))
+	for i, c := range s.seasons {
+		seasons[i] = c.SeasonName
+	}
+	return seasons
 }
 
 func (s *APIStore) GetCategory(slug string) Category {

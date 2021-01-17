@@ -3741,7 +3741,7 @@ a.tag:hover {
 }
 
 .card {
-  background-color: white;
+  background-color: #2e3337;
   border-radius: 1.25rem;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
   color: #f6f6f6;
@@ -5739,14 +5739,14 @@ label.panel-block:hover {
 }
 .tabs a:hover {
   border-bottom-color: #f6f6f6;
-  color: #f6f6f6;
+  color: #2e3337;
 }
 .tabs li {
   display: block;
 }
 .tabs li.is-active a {
-  border-bottom-color: #3273dc;
-  color: #3273dc;
+  border-bottom-color: #83d1e3;
+  color: #83d1e3;
 }
 .tabs ul {
   align-items: center;
@@ -5808,8 +5808,8 @@ label.panel-block:hover {
   position: relative;
 }
 .tabs.is-toggle a:hover {
-  background-color: whitesmoke;
-  border-color: #b5b5b5;
+  background-color: #83d1e3;
+  border-color: #83d1e3;
   z-index: 2;
 }
 .tabs.is-toggle li + li {
@@ -5824,9 +5824,9 @@ label.panel-block:hover {
   border-bottom-right-radius: 4px;
 }
 .tabs.is-toggle li.is-active a {
-  background-color: #3273dc;
-  border-color: #3273dc;
-  color: #fff;
+  background-color: #FFF874;
+  border-color: #FFF874;
+  color: #2e3337;
   z-index: 1;
 }
 .tabs.is-toggle ul {

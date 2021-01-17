@@ -1,0 +1,90 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// Body
+$body-overflow-x: hidden;
+$body-overflow-y: hidden;
+
+// Colors
+$white-smoke: #f6f6f6;
+$beige: #2e3337;
+$beige-lighter: #1a1c1f;
+$glacier: #83d1e3;
+
+$rick: #BEE5FD;
+$morty: #FFF874;
+$rick-head: #B0E7E8;
+
+$primary: $rick;
+//$link: $blue;
+//$info: $cyan;
+//$success: $green;
+//$warning: $yellow;
+//$danger: $red;
+//$dark: $grey-darker;
+$text: $white-smoke;
+
+// Global
+// #B0E7E8,#BEE5FD,#FFF874,#B0E7E8,#BEE5FD
+
+// Fonts
+$family-sans-serif: "Nunito", sans-serif;
+
+$body-background-color: $beige-lighter;
+
+// Typography
+$text-strong: $text;
+
+// Box
+$box-color: $text;
+$box-background-color: $beige;
+
+// Card
+$card-color: $text;
+$card-background-color: $beige;
+$card-radius: 1.25rem;
+
+
+// Button
+$button-color: $text;
+$button-background-color: $beige;
+
+// Pagination
+$pagination-color: $text;
+
+$pagination-hover-color: $text;
+$pagination-hover-border-color: $morty;
+
+$pagination-current-color: $beige;
+$pagination-current-border-color: $morty;
+$pagination-current-background-color: $morty;
+
+
+// Tabs
+$tabs-link-color: $text;
+$tabs-link-hover-color: $beige;
+
+
+$tabs-link-active-color: $glacier;
+$tabs-link-active-border-bottom-color: $glacier;
+
+
+$tabs-toggle-link-hover-background-color: $glacier;
+$tabs-toggle-link-hover-border-color: $glacier;
+
+
+$tabs-toggle-link-active-color: $beige;
+$tabs-toggle-link-active-border-color: $morty;
+$tabs-toggle-link-active-background-color: $morty;
+
+
+
+// Menu
+$menu-item-active-color: $beige;
+$menu-item-active-background-color: $morty;
+
+$menu-item-hover-color: $beige;
+$menu-item-hover-background-color: $glacier;
+
+@import "../bulma/bulma";

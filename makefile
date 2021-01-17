@@ -13,7 +13,7 @@ build-home:
 	go env -w GOARCH=amd64 GOOS=windows
 	go build -o start ./server
 
-	sass web/sass/custom.scss:web/custom.css
+	sass sass/custom.scss:web/custom.css
 
 run-work: build-work
 	./start

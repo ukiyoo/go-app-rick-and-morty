@@ -177,34 +177,26 @@ func (d *Detail) Render() app.UI {
 							),
 							app.Div().Class("tile is-parent").Body(
 								app.Article().Class("tile is-child box").Body(
-									app.P().Class("subtitle").Text("Locations"),
-									app.Small().Class("has-text-grey-light").Text("Origin"),
-									app.P().Text(d.OriginLocation.Name),
-									app.P().Text(d.OriginLocation.Type),
-									app.P().Text(d.OriginLocation.Dimension),
-									app.Br(),
-									app.Small().Class("has-text-grey-light").Text("Now Location"),
-									app.P().Text(d.Location.Name),
-									app.P().Text(d.Location.Type),
-									app.P().Text(d.Location.Dimension),
-								),
-							),
-						),
-						app.Div().Class("tile").Body(
-							app.Div().Class("tile is-parent").Body(
-								app.Article().Class("tile is-child box").Body(
 									app.P().Class("subtitle").Text(d.Response.Name),
 									app.Text(d.Response.Species+" - "),
 									app.Text(d.Response.Gender+" - "),
 									newStatusTag().Text(d.Response.Status),
-								),
-							),
-							app.Div().Class("tile is-parent").Body(
-								app.Article().Class("tile is-child box").Body(
-									app.P().Class("subtitle").Text("First seen in:"),
+									app.Br(),
+
+									app.Br(),
+									app.Small().Class("has-text-grey-light").Text("Origin"),
+									app.P().Text(d.Response.Origin.Name),
+
+									app.Br(),
+									app.Small().Class("has-text-grey-light").Text("Location"),
+									app.P().Text(d.Location.Name),
+									app.P().Text(d.Location.Type),
+									app.P().Text(d.Location.Dimension),
+
+									app.Br(),
+									app.Small().Class("has-text-grey-light").Text("First seen in:"),
 									app.P().Text(d.Episode.Name),
 									app.P().Text(d.Episode.Episode),
-									app.P().Text(d.Episode.AirDate),
 								),
 							),
 						),

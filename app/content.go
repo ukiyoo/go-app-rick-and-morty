@@ -7,12 +7,12 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"time"
 )
 
 type All struct {
 	characterList CharacterList
 	locationList  LocationList
-	episodeList   EpisodeList
 }
 
 type Content struct {
@@ -47,17 +47,14 @@ func (c *Content) getApi(url string) {
 	case LOCATION:
 		err = json.Unmarshal(b, &data.locationList)
 		c.PageCount = data.locationList.Info.Pages
-	case EPISODE:
-		err = json.Unmarshal(b, &data.episodeList)
-		c.PageCount = data.episodeList.Info.Pages
 	}
 
 	if err != nil {
 		app.Log(err.Error())
 		return
 	}
-	//time.AfterFunc(1*time.Second, c.loaderOff)
-	c.loaderOff()
+	time.AfterFunc(1*time.Second, c.loaderOff)
+	//c.loaderOff()
 	c.updateResponse(data)
 }
 
@@ -68,7 +65,6 @@ func (c *Content) updateResponse(data All) {
 
 func (c *Content) OnMount(ctx app.Context) {
 	c.getApi(c.CurrentCategory.URL)
-
 }
 
 func (c *Content) onPage(ctx app.Context, e app.Event) {
@@ -106,14 +102,15 @@ func (c *Content) Render() app.UI {
 					app.If(c.CurrentCategory.Slug == CHARACTER,
 						app.Range(c.Response.characterList.Results).Slice(func(i int) app.UI {
 							character := c.Response.characterList.Results[i]
-							return app.Div().Class("column is-6").Body(
-								app.A().Href("/"+c.CurrentCategory.Slug+"/"+strconv.Itoa(character.ID)).Body(
-									newCharacterBox().
+							return app.Div().Class("column is-3").Body(
+								app.A().Href("/" + c.CurrentCategory.Slug + "/" + strconv.Itoa(character.ID)).Body(
+									newCharacterCard().
 										Name(character.Name).
 										Image(character.Image).
 										Species(character.Species).
 										Status(character.Status).
 										Location(character.Location.Name),
+
 								),
 							)
 						}),
@@ -121,7 +118,7 @@ func (c *Content) Render() app.UI {
 						app.Range(c.Response.locationList.Results).Slice(func(i int) app.UI {
 							location := c.Response.locationList.Results[i]
 							return app.Div().Class("column is-6").Body(
-								app.A().Href("/"+c.CurrentCategory.Slug+"/"+strconv.Itoa(location.ID)).Body(
+								app.A().Href("/").Body(
 									newLocationBox().
 										Name(location.Name).
 										Dimension(location.Dimension),
@@ -129,31 +126,18 @@ func (c *Content) Render() app.UI {
 							)
 						}),
 					).ElseIf(c.CurrentCategory.Slug == EPISODE,
-						app.Range(c.Response.episodeList.Results).Slice(func(i int) app.UI {
-							episode := c.Response.episodeList.Results[i]
-							return app.Div().Class("column is-6").Body(
-								app.A().Href("/"+c.CurrentCategory.Slug+"/"+strconv.Itoa(episode.ID)).Body(
-									newEpisodeBox().
-										Name(episode.Name).
-										AirDate(episode.AirDate).
-										Episode(episode.Episode),
-								),
-							)
-						}),
+						&Episode{},
 					),
 				),
 			),
 			app.Nav().Class("pagination is-centered").Body(
-				//app.A().Href("/").Class("pagination-previous").Text("Prev").OnClick(c.onPrev),
-				//app.A().Href("/").Class("pagination-next").Text("Next").OnClick(c.onNext),
-
 				app.Ul().Class("pagination-list").Body(
 					app.Range(pages).Slice(func(i int) app.UI {
 						i++
 						return app.Li().Body(
 							app.If(c.PageId == 0 && i == 1,
 								app.A().Class("pagination-link is-current").Href("/"+cat.Slug).Text(i).OnClick(c.onPage),
-								).ElseIf(i == c.PageId,
+							).ElseIf(i == c.PageId,
 								app.A().Class("pagination-link is-current").Href("/"+cat.Slug).Text(i).OnClick(c.onPage),
 							).Else(
 								app.A().Class("pagination-link").Href("/" + cat.Slug).Text(i).OnClick(c.onPage),
@@ -289,51 +273,51 @@ func (l *locationBox) Render() app.UI {
 	)
 }
 
-type episodeBox struct {
-	app.Compo
-
-	episode EpisodeDetail
-}
-
-func newEpisodeBox() *episodeBox {
-	return &episodeBox{}
-}
-
-func (e *episodeBox) Name(v string) *episodeBox {
-	e.episode.Name = v
-	return e
-}
-
-func (e *episodeBox) AirDate(v string) *episodeBox {
-	e.episode.AirDate = v
-	return e
-}
-
-func (e *episodeBox) Episode(v string) *episodeBox {
-	e.episode.Episode = v
-	return e
-}
-
-func (e *episodeBox) Render() app.UI {
-	return app.Div().Class("box").Body(
-
-		app.Article().Class("media").Body(
-			app.Div().Class("media-content").Body(
-				app.Div().Class("content").Body(
-					app.P().Body(
-						app.Strong().Text(e.episode.Name),
-						app.Br(),
-						app.Strong().Text(e.episode.AirDate),
-						app.Br(),
-						app.Small().Class("has-text-grey-light").Text("Episode: "),
-						app.Br(),
-						app.Text(e.episode.Episode),
-					),
-				),
-			),
-		),
-	)
-}
+//type episodeBox struct {
+//	app.Compo
+//
+//	episode EpisodeDetail
+//}
+//
+//func newEpisodeBox() *episodeBox {
+//	return &episodeBox{}
+//}
+//
+//func (e *episodeBox) Name(v string) *episodeBox {
+//	e.episode.Name = v
+//	return e
+//}
+//
+//func (e *episodeBox) AirDate(v string) *episodeBox {
+//	e.episode.AirDate = v
+//	return e
+//}
+//
+//func (e *episodeBox) Episode(v string) *episodeBox {
+//	e.episode.Episode = v
+//	return e
+//}
+//
+//func (e *episodeBox) Render() app.UI {
+//	return app.Div().Class("box").Body(
+//
+//		app.Article().Class("media").Body(
+//			app.Div().Class("media-content").Body(
+//				app.Div().Class("content").Body(
+//					app.P().Body(
+//						app.Strong().Text(e.episode.Name),
+//						app.Br(),
+//						app.Strong().Text(e.episode.AirDate),
+//						app.Br(),
+//						app.Small().Class("has-text-grey-light").Text("Episode: "),
+//						app.Br(),
+//						app.Text(e.episode.Episode),
+//					),
+//				),
+//			),
+//		),
+//	)
+//}
 
 type statusTag struct {
 	app.Compo
@@ -363,4 +347,110 @@ func (s *statusTag) Render() app.UI {
 		Class("tag").
 		Class(s.color).
 		Text(s.status)
+}
+
+type characterCard struct {
+	app.Compo
+
+	character CharacterDetail
+}
+
+func newCharacterCard() *characterCard {
+	return &characterCard{}
+}
+
+func (c *characterCard) Name(v string) *characterCard {
+	c.character.Name = v
+	return c
+}
+
+func (c *characterCard) Species(v string) *characterCard {
+	c.character.Species = v
+	return c
+}
+
+func (c *characterCard) Image(v string) *characterCard {
+	c.character.Image = v
+	return c
+}
+
+func (c *characterCard) Status(v string) *characterCard {
+	c.character.Status = v
+	return c
+}
+
+func (c *characterCard) Location(v string) *characterCard {
+	c.character.Location.Name = v
+	return c
+}
+
+func (c *characterCard) Render() app.UI {
+	return app.Div().Class("card").Body(
+
+		app.Div().Class("card-image").Body(
+			app.Figure().Class("image").Body(
+				app.Img().Src(c.character.Image),
+			),
+		),
+
+		app.Div().Class("card-content").Body(
+			app.Article().Class("media").Body(
+				app.Div().Class("content").Body(
+					app.P().Class("title is-4").Text(c.character.Name),
+					app.P().Class("subtitle is-6").Body(
+						app.Text(c.character.Species+" - "),
+						newStatusTag().Text(c.character.Status),
+					),
+					app.P().Class("is-8 has-text-grey-light").Text("Last known location: "),
+					app.P().Class("subtitle is-6").Text(c.character.Location.Name),
+				),
+			),
+		),
+	)
+}
+
+type episodeTabs struct {
+	app.Compo
+
+	episode EpisodeDetail
+}
+
+func newEpisodeTabs() *episodeTabs {
+	return &episodeTabs{}
+}
+
+func (e *episodeTabs) Name(v string) *episodeTabs {
+	e.episode.Name = v
+	return e
+}
+
+func (e *episodeTabs) AirDate(v string) *episodeTabs {
+	e.episode.AirDate = v
+	return e
+}
+
+func (e *episodeTabs) Episode(v string) *episodeTabs {
+	e.episode.Episode = v
+	return e
+}
+
+func (e *episodeTabs) Render() app.UI {
+	return app.Div().Class("box").Body(
+
+		app.Article().Class("media").Body(
+			app.Div().Class("media-content").Body(
+				app.Div().Class("content").Body(
+					app.P().Body(
+						app.Strong().Text(e.episode.Name),
+						app.Br(),
+						app.Strong().Text(e.episode.AirDate),
+						app.Br(),
+						app.Small().Class("has-text-grey-light").Text("Episode: "),
+						app.Br(),
+						app.Text(e.episode.Episode),
+					),
+				),
+			),
+		),
+	)
 }

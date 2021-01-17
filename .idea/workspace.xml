@@ -2,9 +2,100 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="50333816-9f5a-4494-806b-03657b1fc75a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/episode.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bulma/bulma.sass" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bulma/sass/base/_all.sass" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bulma/sass/components/_all.sass" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bulma/sass/elements/_all.sass" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bulma/sass/form/_all.sass" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bulma/sass/grid/_all.sass" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bulma/sass/helpers/_all.sass" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bulma/sass/layout/_all.sass" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bulma/sass/utilities/_all.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/category.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/category.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/content.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/content.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/detail.go" beforeDir="false" afterPath="$PROJECT_DIR$/app/detail.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/makefile" beforeDir="false" afterPath="$PROJECT_DIR$/makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/rnm-portal.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app.wasm" beforeDir="false" afterPath="$PROJECT_DIR$/web/app.wasm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/bulma.sass" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/css/bulma-rtl.css" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/css/bulma-rtl.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/css/bulma-rtl.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/css/bulma-rtl.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/css/bulma-rtl.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/css/bulma-rtl.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/css/bulma.css" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/css/bulma.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/css/bulma.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/css/bulma.css.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/css/bulma.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/css/bulma.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/base/_all.sass" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/base/generic.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/base/generic.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/base/helpers.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/base/helpers.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/base/minireset.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/base/minireset.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/_all.sass" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/breadcrumb.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/breadcrumb.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/card.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/card.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/dropdown.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/dropdown.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/level.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/level.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/media.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/media.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/menu.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/menu.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/message.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/message.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/modal.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/modal.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/navbar.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/navbar.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/pagination.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/pagination.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/panel.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/panel.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/components/tabs.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/components/tabs.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/_all.sass" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/box.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/box.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/button.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/button.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/container.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/container.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/content.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/content.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/form.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/form.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/icon.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/icon.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/image.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/image.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/notification.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/notification.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/other.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/other.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/progress.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/progress.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/table.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/table.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/tag.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/tag.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/elements/title.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/elements/title.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/form/_all.sass" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/form/checkbox-radio.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/form/checkbox-radio.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/form/file.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/form/file.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/form/input-textarea.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/form/input-textarea.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/form/select.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/form/select.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/form/shared.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/form/shared.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/form/tools.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/form/tools.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/grid/_all.sass" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/grid/columns.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/grid/columns.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/grid/tiles.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/grid/tiles.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/helpers/_all.sass" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/helpers/color.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/helpers/color.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/helpers/flexbox.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/helpers/flexbox.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/helpers/float.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/helpers/float.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/helpers/other.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/helpers/other.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/helpers/overflow.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/helpers/overflow.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/helpers/position.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/helpers/position.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/helpers/spacing.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/helpers/spacing.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/helpers/typography.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/helpers/typography.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/helpers/visibility.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/helpers/visibility.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/layout/_all.sass" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/layout/footer.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/layout/footer.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/layout/hero.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/layout/hero.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/layout/section.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/layout/section.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/utilities/_all.sass" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/utilities/animations.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/utilities/animations.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/utilities/controls.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/utilities/controls.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/utilities/derived-variables.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/utilities/derived-variables.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/utilities/functions.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/utilities/functions.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/utilities/initial-variables.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/utilities/initial-variables.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/bulma/sass/utilities/mixins.sass" beforeDir="false" afterPath="$PROJECT_DIR$/bulma/sass/utilities/mixins.sass" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/custom.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/custom.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/loader.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/loader.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/logo.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/logo.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/sass/custom.scss" beforeDir="false" afterPath="$PROJECT_DIR$/sass/custom.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,9 +129,10 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../go-store-pwa" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -50,8 +142,9 @@
       <recent name="C:\Users\Kinetsu\Desktop\go-app-rick-and-morty" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\Kinetsu\Desktop\go-app-rick-and-morty\web\sass" />
+      <recent name="C:\Users\Kinetsu\Desktop\go-app-rick-and-morty" />
       <recent name="C:\Users\Kinetsu\Desktop\go-app-rick-and-morty\web" />
+      <recent name="C:\Users\Kinetsu\Desktop\go-app-rick-and-morty\web\sass" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -69,6 +162,11 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/go-app-rick-and-morty" />
+    </ignored-roots>
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
