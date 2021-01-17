@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	os.Setenv("PORT", "8000")
+	//os.Setenv("PORT", "8000")
 	port := os.Getenv("PORT")
 	http.Handle("/", &app.Handler{
 		Author:      "ukiyoo",
