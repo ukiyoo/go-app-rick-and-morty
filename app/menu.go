@@ -12,6 +12,7 @@ type menu struct {
 
 func (m *menu) Render() app.UI {
 	cats := api.Categories()
+	var h home
 	return app.Div().Class("section").Body(
 		app.Div().Class("align-content").Body(
 			app.Figure().Body(
@@ -28,6 +29,15 @@ func (m *menu) Render() app.UI {
 						Text(c.Name).
 						IsActive(c.Slug == m.CurrentCategory.Slug)
 				}),
+				app.If(h.UpdateAvailable,
+					app.Li().Body(
+						app.A().
+							Class("button").
+							Href("#").
+							Text("UPDATE").
+							OnClick(h.onUpdateClick),
+					),
+				),
 			),
 		),
 	)

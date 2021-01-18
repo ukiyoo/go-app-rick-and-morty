@@ -1,20 +1,20 @@
 package main
 
 var (
-	api = newAPIStore()
+	api       = newAPIStore()
 	CHARACTER = "character"
-	LOCATION = "location"
-	EPISODE = "episode"
+	LOCATION  = "location"
+	EPISODE   = "episode"
 )
 
 type APIStore struct {
 	categories []Category
-	seasons []Season
+	seasons    []Season
 }
 
 type Season struct {
 	SeasonName string
-	SeasonURL string
+	SeasonURL  string
 }
 
 type Category struct {
@@ -39,27 +39,25 @@ func newAPIStore() *APIStore {
 			Name: "EPISODES",
 			Slug: EPISODE,
 			URL:  "https://rickandmortyapi.com/api/episode",
-
 		},
 	}
 	s := []Season{
 		{
 			SeasonName: "S01",
-			SeasonURL: "https://rickandmortyapi.com/api/episode/?episode=S01",
+			SeasonURL:  "https://rickandmortyapi.com/api/episode/?episode=S01",
 		},
 		{
 			SeasonName: "S02",
-			SeasonURL: "https://rickandmortyapi.com/api/episode/?episode=S02",
+			SeasonURL:  "https://rickandmortyapi.com/api/episode/?episode=S02",
 		},
 		{
 			SeasonName: "S03",
-			SeasonURL: "https://rickandmortyapi.com/api/episode/?episode=S03",
+			SeasonURL:  "https://rickandmortyapi.com/api/episode/?episode=S03",
 		},
 		{
 			SeasonName: "S04",
-			SeasonURL: "https://rickandmortyapi.com/api/episode/?episode=S04",
+			SeasonURL:  "https://rickandmortyapi.com/api/episode/?episode=S04",
 		},
-
 	}
 
 	return &APIStore{categories: c, seasons: s}

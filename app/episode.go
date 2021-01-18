@@ -2,9 +2,10 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/maxence-charriere/go-app/v7/pkg/app"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/maxence-charriere/go-app/v7/pkg/app"
 )
 
 type Episode struct {
@@ -110,6 +111,52 @@ func (e *Episode) Render() app.UI {
 					),
 				)
 			}),
+		),
+	)
+}
+
+type episodeTabs struct {
+	app.Compo
+
+	episode EpisodeDetail
+}
+
+func newEpisodeTabs() *episodeTabs {
+	return &episodeTabs{}
+}
+
+func (e *episodeTabs) Name(v string) *episodeTabs {
+	e.episode.Name = v
+	return e
+}
+
+func (e *episodeTabs) AirDate(v string) *episodeTabs {
+	e.episode.AirDate = v
+	return e
+}
+
+func (e *episodeTabs) Episode(v string) *episodeTabs {
+	e.episode.Episode = v
+	return e
+}
+
+func (e *episodeTabs) Render() app.UI {
+	return app.Div().Class("box").Body(
+
+		app.Article().Class("media").Body(
+			app.Div().Class("media-content").Body(
+				app.Div().Class("content").Body(
+					app.P().Body(
+						app.Strong().Text(e.episode.Name),
+						app.Br(),
+						app.Strong().Text(e.episode.AirDate),
+						app.Br(),
+						app.Small().Class("has-text-grey-light").Text("Episode: "),
+						app.Br(),
+						app.Text(e.episode.Episode),
+					),
+				),
+			),
 		),
 	)
 }
