@@ -19,6 +19,8 @@ type Search struct {
 	PageId          int
 	Response        CharacterList
 	CurrentCategory Category
+	query string
+	error           bool
 }
 
 func (s *Search) getCharacterList(url string) {
@@ -26,6 +28,9 @@ func (s *Search) getCharacterList(url string) {
 	if err != nil {
 		app.Log(err.Error())
 		return
+	}
+	if r.StatusCode != 200 {
+		s.error = true
 	}
 	defer r.Body.Close()
 
@@ -57,10 +62,8 @@ func (s *Search) updateResponse(data CharacterList) {
 func (s *Search) onChangeCharacterList(ctx app.Context, e app.Event) {
 	s.loaderOn()
 
-	query := ctx.JSSrc.Get("value").String()
-	s.PageId, _ = strconv.Atoi(query)
-	url := fmt.Sprintf("https://rickandmortyapi.com/api/character/?name=%v", query)
-	fmt.Println(url)
+	s.query = ctx.JSSrc.Get("value").String()
+	url := fmt.Sprintf("https://rickandmortyapi.com/api/character/?name=%v", s.query)
 	s.getCharacterList(url)
 }
 
@@ -69,21 +72,21 @@ func (s *Search) onPageClick(ctx app.Context, e app.Event) {
 
 	pageInt := ctx.JSSrc.Get("text").String()
 	s.PageId, _ = strconv.Atoi(pageInt)
-	url := fmt.Sprintf("https://rickandmortyapi.com/api/%v/?page=%v", s.CurrentCategory.Slug, s.PageId)
+	url := fmt.Sprintf("https://rickandmortyapi.com/api/%v/?page=%v&name=%v", CHARACTER, s.PageId, s.query)
 
 	app.Dispatch(func() {
 		s.getCharacterList(url)
 	})
 }
 
-func (c *Search) loaderOff() {
-	c.loader = true
-	c.Update()
+func (s *Search) loaderOff() {
+	s.loader = true
+	s.Update()
 }
 
-func (c *Search) loaderOn() {
-	c.loader = false
-	c.Update()
+func (s *Search) loaderOn() {
+	s.loader = false
+	s.Update()
 }
 
 func (s *Search) OnMount(ctx app.Context) {
@@ -92,28 +95,32 @@ func (s *Search) OnMount(ctx app.Context) {
 
 func (s *Search) Render() app.UI {
 	pages := make([]int, s.PageCount)
-	cat := api.GetCategory(s.CurrentCategory.Slug)
 	return app.Div().Class("section").Body(
 		app.Div().Class("container").Body(
-			app.Div().Class("section").Body(
-				app.Div().Class("field has-addons").Body(
-					app.Div().Class("control is-grouped is-8").Body(
-						app.Input().Class("input is-focused is-primary").Type("text").Placeholder("Find a characters").OnChange(s.onChangeCharacterList),
-					),
-					app.Div().Class("control").Body(
-						app.A().Href("#").Class("button").Text("Search").OnSubmit(s.onChangeCharacterList),
+			app.Div().Class("columns").Body(
+				app.Div().Class("column is-6").Body(
+					app.Div().Class("field is-grouped").Body(
+						app.Div().Class("control is-expanded").Body(
+							app.Input().Class("input").Type("text").Placeholder("Find a characters").OnChange(s.onChangeCharacterList),
+						),
+						app.Div().Class("control").Body(
+							app.A().Href("#").Class("button").Text("Find").OnSubmit(s.onChangeCharacterList),
+						),
 					),
 				),
 			),
-
 			app.If(!s.loader,
 				newLoader(),
+			).ElseIf(s.error,
+				app.Div().Class("has-text-centered").Body(
+					app.P().Class("is-size-2").Text("There is nothing here"),
+				),
 			).Else(
 				app.Div().Class("columns is-multiline").Body(
 					app.Range(s.Response.Results).Slice(func(i int) app.UI {
 						character := s.Response.Results[i]
 						return app.Div().Class("column is-3").Body(
-							app.A().Href("/" + s.CurrentCategory.Slug + "/" + strconv.Itoa(character.ID)).Body(
+							app.A().Href("#").Body(
 								newCharacterCard().
 									Name(character.Name).
 									Image(character.Image).
@@ -131,11 +138,11 @@ func (s *Search) Render() app.UI {
 						i++
 						return app.Li().Body(
 							app.If(s.PageId == 0 && i == 1,
-								app.A().Class("pagination-link is-current").Href("/"+cat.Slug).Text(i).OnClick(s.onPageClick),
+								app.A().Class("pagination-link is-current").Href("#").Text(i).OnClick(s.onPageClick),
 							).ElseIf(i == s.PageId,
-								app.A().Class("pagination-link is-current").Href("/"+cat.Slug).Text(i).OnClick(s.onPageClick),
+								app.A().Class("pagination-link is-current").Href("#").Text(i).OnClick(s.onPageClick),
 							).Else(
-								app.A().Class("pagination-link").Href("/" + cat.Slug).Text(i).OnClick(s.onPageClick),
+								app.A().Class("pagination-link").Href("#").Text(i).OnClick(s.onPageClick),
 							),
 						)
 					}),

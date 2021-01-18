@@ -81,7 +81,6 @@ func (c *Character) loaderOn() {
 }
 
 func (c *Character) Render() app.UI {
-	cat := api.GetCategory(c.CurrentCategory.Slug)
 	pages := make([]int, c.PageCount)
 	return app.Div().Class("section").Body(
 		app.Div().Class("container").Body(
@@ -93,7 +92,7 @@ func (c *Character) Render() app.UI {
 					app.Range(c.Response.Results).Slice(func(i int) app.UI {
 						character := c.Response.Results[i]
 						return app.Div().Class("column is-3").Body(
-							app.A().Href("/" + c.CurrentCategory.Slug + "/" + strconv.Itoa(character.ID)).Body(
+							app.A().Href("#").Body(
 								newCharacterCard().
 									Name(character.Name).
 									Image(character.Image).
@@ -111,11 +110,11 @@ func (c *Character) Render() app.UI {
 						i++
 						return app.Li().Body(
 							app.If(c.PageId == 0 && i == 1,
-								app.A().Class("pagination-link is-current").Href("/"+cat.Slug).Text(i).OnClick(c.onPageClick),
+								app.A().Class("pagination-link is-current").Href("#").Text(i).OnClick(c.onPageClick),
 							).ElseIf(i == c.PageId,
-								app.A().Class("pagination-link is-current").Href("/"+cat.Slug).Text(i).OnClick(c.onPageClick),
+								app.A().Class("pagination-link is-current").Href("#").Text(i).OnClick(c.onPageClick),
 							).Else(
-								app.A().Class("pagination-link").Href("/" + cat.Slug).Text(i).OnClick(c.onPageClick),
+								app.A().Class("pagination-link").Href("#").Text(i).OnClick(c.onPageClick),
 							),
 						)
 					}),

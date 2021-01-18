@@ -45,13 +45,33 @@ $card-color: $text;
 $card-background-color: $beige;
 $card-radius: 1.25rem;
 
+// Search Input
+$input-color: $text;
+$input-border-color: $beige-lighter;
+$input-background-color: $beige;
+
+$input-hover-color: $text;
+$input-hover-border-color: $glacier;
+
+$input-focus-color: $text;
+$input-focus-border-color: $glacier;
+
 
 // Button
-$button-color: $text;
-$button-background-color: $beige;
+$button-color: $beige;
+$button-background-color: $glacier;
+$button-border-color: $glacier;
+
+$button-hover-color: $beige;
+$button-hover-border-color: $glacier;
+
+//$button-focus-border-color: $beige;
+//$button-text-hover-color: $text;
 
 // Pagination
 $pagination-color: $text;
+$input-border-color: $beige;
+
 
 $pagination-hover-color: $text;
 $pagination-hover-border-color: $morty;
@@ -87,8 +107,6 @@ $menu-item-active-background-color: $morty;
 $menu-item-hover-color: $beige;
 $menu-item-hover-background-color: $glacier;
 
-// Search Input
-$input-color: $beige;
 
 
 @import "../bulma/bulma";

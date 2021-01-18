@@ -435,10 +435,10 @@ a.box:active {
 }
 
 .button {
-  background-color: #2e3337;
-  border-color: #dbdbdb;
+  background-color: #83d1e3;
+  border-color: #83d1e3;
   border-width: 1px;
-  color: #f6f6f6;
+  color: #2e3337;
   cursor: pointer;
   justify-content: center;
   padding-bottom: calc(0.5em - 1px);
@@ -468,8 +468,8 @@ a.box:active {
   margin-right: calc(-0.5em - 1px);
 }
 .button:hover, .button.is-hovered {
-  border-color: #b5b5b5;
-  color: #363636;
+  border-color: #83d1e3;
+  color: #2e3337;
 }
 .button:focus, .button.is-focused {
   border-color: #3273dc;
@@ -2633,8 +2633,8 @@ a.tag:hover {
 
 /* Bulma Form */
 .select select, .textarea, .input {
-  background-color: white;
-  border-color: #dbdbdb;
+  background-color: #2e3337;
+  border-color: #2e3337;
   border-radius: 4px;
   color: #f6f6f6;
 }
@@ -2651,10 +2651,10 @@ a.tag:hover {
   color: rgba(246, 246, 246, 0.3);
 }
 .select select:hover, .textarea:hover, .input:hover, .select select.is-hovered, .is-hovered.textarea, .is-hovered.input {
-  border-color: #b5b5b5;
+  border-color: #83d1e3;
 }
 .select select:focus, .textarea:focus, .input:focus, .select select.is-focused, .is-focused.textarea, .is-focused.input, .select select:active, .textarea:active, .input:active, .select select.is-active, .is-active.textarea, .is-active.input {
-  border-color: #3273dc;
+  border-color: #83d1e3;
   box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
 }
 .select select[disabled], [disabled].textarea, [disabled].input, fieldset[disabled] .select select, .select fieldset[disabled] select, fieldset[disabled] .textarea, fieldset[disabled] .input {

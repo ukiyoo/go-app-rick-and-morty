@@ -15,9 +15,12 @@ func (m *menu) Render() app.UI {
 	var h home
 	return app.Div().Class("section").Body(
 		app.Div().Class("align-content").Body(
+			app.A().Href("/").Body(
 			app.Figure().Body(
 				app.Img().Src("/web/logo.png"),
 			),
+
+				),
 		),
 		app.Aside().Class("menu").Body(
 			app.P().Class("menu-label").Text("Rick&Morty"),
