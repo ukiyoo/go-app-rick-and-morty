@@ -27,14 +27,14 @@ func (h *home) Render() app.UI {
 	return app.Div().Body(
 		app.Shell().
 			Menu(app.Div().
-				Body(&menu{CurrentCategory: c}),
+				Body(&menu{CurrentCategory: c, UpdateStatus: h.UpdateAvailable}),
 			).
 			OverlayMenu(
 				app.Div().
 					Style("background", "linear-gradient(#2e343a, rgba(0, 0, 0, 0.9))").
 					Style("height", "100%").
 					Class("overlay-menu").
-					Body(&menu{CurrentCategory: c}),
+					Body(&menu{CurrentCategory: c, UpdateStatus: h.UpdateAvailable}),
 			).
 			Content(app.Main().
 				Style("height", "calc(100% - 45px - 12px - 5px)").

@@ -7,6 +7,7 @@ import (
 type menu struct {
 	app.Compo
 
+	UpdateStatus bool
 	CurrentCategory Category
 }
 
@@ -32,7 +33,7 @@ func (m *menu) Render() app.UI {
 						Text(c.Name).
 						IsActive(c.Slug == m.CurrentCategory.Slug)
 				}),
-				app.If(h.UpdateAvailable,
+				app.If(m.UpdateStatus,
 					app.Li().Body(
 						app.A().
 							Class("button").
