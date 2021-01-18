@@ -31,6 +31,8 @@ func (s *Search) getCharacterList(url string) {
 	}
 	if r.StatusCode != 200 {
 		s.error = true
+	} else {
+		s.error = false
 	}
 	defer r.Body.Close()
 
