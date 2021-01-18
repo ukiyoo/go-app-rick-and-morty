@@ -19,7 +19,7 @@ type Search struct {
 	PageId          int
 	Response        CharacterList
 	CurrentCategory Category
-	query string
+	query           string
 	error           bool
 }
 
