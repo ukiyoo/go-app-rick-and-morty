@@ -68,6 +68,7 @@ func (e *Episode) Render() app.UI {
 	seasons := api.Seasons()
 	return app.Div().Class("section").Body(
 		app.Div().Class("container").Body(
+			app.H1().Class("title").Text("EPISODES"),
 			app.Div().Class("column").Body(
 				app.Div().Class("tabs is-toggle").Body(
 					app.Ul().Body(

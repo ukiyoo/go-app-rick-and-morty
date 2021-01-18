@@ -27,7 +27,7 @@ func main() {
 			"web/loader.css",
 			"web/custom.css",
 		},
-		Version: "0.0.4",
+		Version: "0.1.5",
 	})
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
