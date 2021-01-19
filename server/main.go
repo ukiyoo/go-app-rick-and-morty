@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	//os.Setenv("PORT", "8000")
+	os.Setenv("PORT", "8000")
 	port := os.Getenv("PORT")
 	http.Handle("/", &app.Handler{
 		Author:      "ukiyoo",
@@ -22,12 +22,12 @@ func main() {
 		},
 		ThemeColor:      "#1a1c1f",
 		BackgroundColor: "#1a1c1f",
-		LoadingLabel: "...Welcome To The Club, Pal.",
+		LoadingLabel:    "...Welcome To The Club, Pal.",
 		Styles: []string{
 			"web/loader.css",
 			"web/custom.css",
 		},
-		Version: "0.1.6",
+		Version: "0.1.8",
 	})
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {

@@ -51,7 +51,7 @@ func (s *Search) getCharacterList(url string) {
 		return
 	}
 	time.AfterFunc(1*time.Second, s.loaderOff)
-	// c.loaderOff()
+	// s.loaderOff()
 	s.updateResponse(data)
 }
 
@@ -63,7 +63,7 @@ func (s *Search) updateResponse(data CharacterList) {
 
 func (s *Search) onChangeCharacterList(ctx app.Context, e app.Event) {
 	s.loaderOn()
-
+	e.PreventDefault()
 	s.query = ctx.JSSrc.Get("value").String()
 	url := fmt.Sprintf("https://rickandmortyapi.com/api/character/?name=%v", s.query)
 	s.getCharacterList(url)
@@ -103,7 +103,7 @@ func (s *Search) Render() app.UI {
 				app.Div().Class("column is-6").Body(
 					app.Div().Class("field is-grouped").Body(
 						app.Div().Class("control is-expanded").Body(
-							app.Input().Class("input").Type("text").Placeholder("Find a characters").OnChange(s.onChangeCharacterList),
+							app.Input().Class("input").Type("text").Placeholder("Find a characters").OnInput(s.onChangeCharacterList),
 						),
 						app.Div().Class("control").Body(
 							app.A().Href("#").Class("button").Text("Find").OnSubmit(s.onChangeCharacterList),

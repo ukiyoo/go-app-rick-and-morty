@@ -39,7 +39,7 @@ func (h *home) Render() app.UI {
 			Content(app.Main().
 				Style("height", "calc(100% - 45px - 12px - 5px)").
 				Style("margin", "45px 0 12px").
-				Style("padding", "42px 0 0").
+				// Style("padding", "42px 0 0").
 				Style("overflow-x", "hidden").
 				Style("overflow-y", "auto").
 				Body(
